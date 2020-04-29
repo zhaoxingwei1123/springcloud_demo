@@ -1,0 +1,32 @@
+spring:
+  application:
+    name: book-server
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://192.168.138.130:3306/zxw?serverTimezone=GMT%2B8
+    username: root
+    password: Zhao@1123
+server:
+  port: 2000
+  servlet:
+    context-path: /book-server
+
+mybatis:
+  mapper-locations: classpath:sql-mapping/*Mapping.xml
+  type-aliases-package: com.zxw.entity
+
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:1800/erueka-server/eureka/
+  instance:
+    prefer-ip-address: true
+    instance-id: ${spring.cloud.client.ip-address}:${server.port}
+
+
+logging:
+  level:
+    com:
+      zxw:
+        dao: debug
+

@@ -1,0 +1,4 @@
+# Project exclude paths
+/book_service/target/
+/eureka_service/target/
+/show_service/target/

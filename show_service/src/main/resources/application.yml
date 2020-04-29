@@ -1,0 +1,39 @@
+spring:
+  application:
+    name: show_server
+
+server:
+  port: 3001
+  servlet:
+    context-path: /show_server
+  tomcat:
+    max-threads: 10
+
+
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:1800/erueka-server/eureka/
+  instance:
+    prefer-ip-address: true
+    instance-id: ${spring.cloud.client.ip-address}:${server.port} #向注册中心中注册服务id
+#ribbon:
+  #ConnectTimeout: 5000
+  #ReadTimeout: 5000
+
+feign:
+  hystrix:
+    enabled: true
+
+hystrix:
+  command:
+    default:
+      execution:
+        isolation:
+          thread:
+            timeoutInMilliseconds: 1000 #默认的连接超时时间1秒,若1秒没有返回数据,自动的触发降级逻辑
+      circuitBreaker:
+        enabled: true
+        requestVolumeThreshold: 5
+        errorThresholdPercentage: 10
+        sleepWindowInMilliseconds: 10000
